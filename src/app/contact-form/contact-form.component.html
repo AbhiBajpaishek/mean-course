@@ -1,0 +1,55 @@
+<form #f='ngForm' (ngSubmit)='onSubmit(f)'>
+  <div ngModelGroup ="contact">
+    <div class="form-group">
+      <label for="firstName">First Name</label>
+      <input
+        required
+        minlength='5'
+        maxlength='15'
+        pattern='banana'
+        type="text"
+        ngModel name='firstName'
+        id="firstName"
+        #firstName='ngModel'
+        (change)="onchange(firstName)"
+        class="form-control">
+      <div class="alert alert-danger"
+        *ngIf='firstName.touched&&!firstName.valid'>
+          <div
+            *ngIf='firstName.errors.required'>
+            First Name can't be empty!!
+          </div>
+          <div
+            *ngIf='firstName.errors.minlength'>
+            First Name should be atleast {{firstName.errors.minlength.requiredlength}} characters!!!
+          </div>
+          <div
+            *ngIf='firstName.errors.pattern'>
+            Pattern doesn't match!!!
+          </div>
+        </div>
+      </div>
+  </div>
+
+  <div class="form-group">
+    <label for="comment">Comments</label>
+    <textarea id="comment" ngModel name='comment' cols="30" rows="10" class="form-control"></textarea>
+  </div>
+
+  <div class="checkbox">
+    <label>
+      <input type="checkbox" ngModel name='isSubsrcibed'> I subscribe to receive mails
+    </label>
+  </div>
+  <div class="form-group">
+    <label for="contactMethod">Contact Method</label>
+    <select ngModel id="contactMethod" name="contactMethod" class="form-control">
+      <option></option>
+      <option *ngFor="let method of contactMethods" [value]="method.id">{{method.name}}</option>
+    </select>
+  </div>
+
+  <p>{{f.value | json}}</p>
+  <button class="btn btn-primary" [disabled]="!f.valid">Submit</button>
+</form>
+

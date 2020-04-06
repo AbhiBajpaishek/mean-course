@@ -1,0 +1,8 @@
+<h2>{{title}}</h2>
+
+    <button #nameBtn (click)="onSave(nameBtn)" [style.backgroundColor]="isActive? 'blue':'black'" class='btn btn-primary' [class.active]="isActive">Save</button>
+    <ul>
+      <li *ngFor='let course of courses'>
+        {{course}}
+      </li>
+    </ul>
