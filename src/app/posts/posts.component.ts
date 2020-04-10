@@ -20,11 +20,8 @@ export class PostsComponent  {
 
   ngOnInit()
   {
-    this.service.getPosts()
-    .subscribe(
-      (response)=>{
-        this.posts=response as any;
-    });
+    this.service.getAll()
+    .subscribe(posts=> this.posts=posts as any);
   }
 
   createPost(postData: HTMLInputElement)
@@ -32,13 +29,14 @@ export class PostsComponent  {
     let post={
       title:postData.value
     }
-    this.service.createPost(post)
-    .subscribe(
-    (response)=>{
-      post["id"]=response["id"];
-      this.posts.splice(0,0,post);
+    this.posts.splice(0,0,post);
+    this.service.create(post)
+    .subscribe(newPost=>{
+      post["id"]=newPost["id"];
     },
     (error:AppError)=>{
+      this.posts.splice(0,1);
+
       if(error instanceof AlreadyExistsError){
         alert("Post already exists!!");
         // this.form.setErrors(error.originalError);
@@ -50,24 +48,25 @@ export class PostsComponent  {
 
   updatePost(postData)
   {
-    this.service.updatePost(postData)
+    this.service.update(postData)
     .subscribe(
-    (response)=>{
-      postData=response;
-      console.log(response);
+    (updatedPost)=>{
+      postData=updatedPost;
+      console.log(updatedPost);
     });
   }
 
 
   deletePost(postData)
   {
-    this.service.deletePost(552)
-    .subscribe(
-    (response)=>{
-        let index=this.posts.indexOf(postData);
-        this.posts.splice(index,1);
-      },
+    let index=this.posts.indexOf(postData);
+    this.posts.splice(index,1);
+
+    this.service.delete(552)
+    .subscribe(()=>{},
     (error:AppError)=>{
+      this.posts.splice(index,0,postData);
+
       if(error instanceof NotFoundError)
         alert('Post has already been deleted');
       else throw error;

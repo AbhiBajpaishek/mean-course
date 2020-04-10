@@ -23,6 +23,8 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
 import { PostsComponent } from './posts/posts.component';
 import { PostService } from './services/post.service';
 import { AppErrorHandler } from './common/app-error-handler';
+import { DataService } from './services/data.service';
+import { GithubFollowersComponent } from './github-followers/github-followers.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +43,7 @@ import { AppErrorHandler } from './common/app-error-handler';
     NewCourseFormComponent,
     ChangePasswordComponent,
     PostsComponent,
+    GithubFollowersComponent,
   ],
   imports: [
     BrowserModule,
