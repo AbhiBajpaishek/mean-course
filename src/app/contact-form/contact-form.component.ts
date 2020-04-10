@@ -15,7 +15,16 @@ export class ContactFormComponent {
     id:2,
     name:'Mobile'
   }];
-
+  genders=[
+    {
+      id:1,
+      name:'male'
+    },
+    {
+      id:2,
+      name:'female'
+    }
+  ];
   onchange(firstName)
   {
     console.log(firstName);

@@ -21,7 +21,7 @@
           </div>
           <div
             *ngIf='firstName.errors.minlength'>
-            First Name should be atleast {{firstName.errors.minlength.requiredlength}} characters!!!
+            First Name should be atleast {{firstName.errors.minlength.requiredLength}} characters!!!
           </div>
           <div
             *ngIf='firstName.errors.pattern'>
@@ -36,6 +36,13 @@
     <textarea id="comment" ngModel name='comment' cols="30" rows="10" class="form-control"></textarea>
   </div>
 
+  <div class="radio-inline" *ngFor="let gender of genders">
+    <label>
+      <input ngModel name="gender" type="radio" class="form-control" [value]='gender.id'/>
+      {{gender.name}}
+    </label>
+  </div>
+
   <div class="checkbox">
     <label>
       <input type="checkbox" ngModel name='isSubsrcibed'> I subscribe to receive mails
@@ -43,11 +50,13 @@
   </div>
   <div class="form-group">
     <label for="contactMethod">Contact Method</label>
-    <select ngModel id="contactMethod" name="contactMethod" class="form-control">
-      <option></option>
+    <select ngModel id="contactMethod" name="contactMethod">
+      <option value=""></option>
       <option *ngFor="let method of contactMethods" [value]="method.id">{{method.name}}</option>
     </select>
   </div>
+
+
 
   <p>{{f.value | json}}</p>
   <button class="btn btn-primary" [disabled]="!f.valid">Submit</button>

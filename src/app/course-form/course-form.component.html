@@ -1,0 +1,60 @@
+<form #courseForm='ngForm' (ngSubmit)="onSubmit(courseForm)">
+  <div class="form-group">
+    <label for="courseName">Course Name</label>
+    <input
+      required
+      minlength='5'
+      type="text"
+      id="courseName"
+      ngModel
+      #courseName='ngModel'
+      name="courseName"
+      class="form-control"
+      >
+  </div>
+  <div class="alert alert-danger" *ngIf="courseName.touched&&!courseName.valid">
+    <div *ngIf="courseName.errors.required">Course Name can't be empty!!!</div>
+    <div *ngIf="courseName.errors.minlength">Course Name should be atleast {{courseName.errors.minlength.requiredLength}} characters!!!</div>
+  </div>
+
+  <div class="form-group">
+    <label for='courseCategory'>Choose Course Category</label>
+    <select
+      required
+      class="form-control"
+      ngModel
+      name="courseCategory"
+      id="courseCategory"
+      #courseCategory='ngModel'
+      >
+      <option value=""></option>
+      <option
+        *ngFor="let category of coursesCategory"
+        [value]="category.id"
+      >{{category.name}}</option>
+    </select>
+  </div>
+
+  <div
+    class="alert alert-danger"
+    *ngIf="courseCategory.touched&&!courseCategory.valid">
+    <div *ngIf="courseCategory.errors.required">Course Category has to be selected!!!</div>
+  </div>
+
+  <div class="checkbox">
+    <label>
+      <input type='checkbox'
+        ngModel
+        name="checkBox"
+        id="checkBox"
+        />
+        30 days money back guarantee!!
+    </label>
+  </div>
+
+  <p>
+    {{courseForm.value | json}}
+  </p>
+
+  <button class="btn btn-primary" [disabled]="!courseForm.valid">Submit</button>
+</form>

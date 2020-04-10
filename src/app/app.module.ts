@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import {FormsModule} from '@angular/forms';
-
+import { NgModule, ErrorHandler } from '@angular/core';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {HttpClientModule} from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { CoursesComponent } from './courses/courses.component';
@@ -16,10 +16,18 @@ import { LikeComponent } from './like/like.component';
 import { CasingDirective } from './casing.directive';
 import { ZippyComponent } from './zippy/zippy.component';
 import { ContactFormComponent } from './contact-form/contact-form.component';
+import { CourseFormComponent } from './course-form/course-form.component';
+import { SignupFormComponent } from './signup-form/signup-form.component';
+import { NewCourseFormComponent } from './new-course-form/new-course-form.component';
+import { ChangePasswordComponent } from './change-password/change-password.component';
+import { PostsComponent } from './posts/posts.component';
+import { PostService } from './services/post.service';
+import { AppErrorHandler } from './common/app-error-handler';
 
 @NgModule({
   declarations: [
     AppComponent,
+    SignupFormComponent,
     CoursesComponent,
     AuthorComponent,
     TitleCasingComponent,
@@ -29,12 +37,22 @@ import { ContactFormComponent } from './contact-form/contact-form.component';
     CasingDirective,
     ZippyComponent,
     ContactFormComponent,
+    CourseFormComponent,
+    NewCourseFormComponent,
+    ChangePasswordComponent,
+    PostsComponent,
   ],
   imports: [
     BrowserModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule
   ],
-  providers: [CoursesService,AuthorService],
+  providers: [CoursesService,
+              AuthorService,
+              PostService,
+              {provide:ErrorHandler, useClass:AppErrorHandler}
+            ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
