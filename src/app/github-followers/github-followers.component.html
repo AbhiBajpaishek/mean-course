@@ -8,8 +8,8 @@
   </div>
   <div class="media-body">
     <h4 class="media-heading">
-      {{user.login}}
+      <a [routerLink]="['/followers',user.id]">{{user.login}}</a>
     </h4>
-    <a href={{user.html_url}}>{{user.html_url}}</a>
+    <a routerLink={{user.html_url}}>{{user.html_url}}</a>
   </div>
 </div>

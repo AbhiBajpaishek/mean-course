@@ -17,7 +17,6 @@ export class GithubFollowersComponent implements OnInit {
     this.service.getAll().subscribe(
       user=>{
         this.users=user as any;
-        console.log(this.users);
       }
     )
   }
